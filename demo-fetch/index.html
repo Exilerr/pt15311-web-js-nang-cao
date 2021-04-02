@@ -19,7 +19,7 @@
     .then(students => {
         var content = ``;
         students.forEach(element => {
-            content += `<tr>
+            content += `<tr student-id={`${StudentId}`}>
                             <td>${element.id}</td>
                             <td>${element.name}</td>
                             <td>
@@ -28,10 +28,24 @@
                             <td>${element.class.name}</td>
                             <td>
                                 <a href="edit-student.html?id=${element.id}">Edit</a>
-                                <a href="remove-student.html?id=${element.id}">Remove</a>
+                                <a class="remove-btn" onclick='removeStudent(${element.id})' href="remove-student.html?id=${element.id}">Remove</a>
                             </td>
                         </tr>`;
         });
         document.querySelector('tbody').innerHTML = content;
-    })
+    });
+    function removeStudent(studentId,el){
+        const removeUrl = `${apiUrl}/${studentId}`;
+        fetch (removeUrl,{
+            method :"DELETE",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json' 
+            }
+        })
+        .then(()=>{
+            document.querySelectorAll(`[student-id="${studentID}"]`).remove();
+        });
+    }
+    
 </script>
