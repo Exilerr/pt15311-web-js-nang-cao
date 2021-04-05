@@ -2,39 +2,32 @@
     <thead>
         <th>ID</th>
         <th>Name</th>
-        <th>Image</th>
-        <th>Class</th>
         <th>
-            <a href="add-student.html">Add new</a>
+            <a href="add-class.html">Add new</a>
         </th>
     </thead>
     <tbody></tbody>
 </table>
 
 <script>
-    var apiUrl = "http://localhost:3000/students";
-    fetch(`${apiUrl}?_expand=class`)
+    var apiUrl = "http://localhost:3000/classes";
+    fetch(`${apiUrl}?_expand=classs`)
     .then(response => response.json())
-    .then(students => {
+    .then(classs => {
         var content = ``;
-        students.forEach(element => {
-            content += `<tr student-id="${element.id}">
+        classs.forEach(element => {
+            content += `<tr class-id="${element.id}">
                             <td>${element.id}</td>
                             <td>${element.name}</td>
-                            <td>
-                                <img src="${element.image}" width="70"/>    
-                            </td>
-                            <td>${element.class.name}</td>
-                            <td>
-                                <a href="edit-student.html?id=${element.id}">Edit</a>
-                                <a class="remove-btn" onclick="removeStudent(${element.id})" href="javascript:;">Remove</a>
+                                <a href="edit-class.html?id=${element.id}">Edit</a>
+                                <a class="remove-btn" onclick="removeClass(${element.id})" href="javascript:;">Remove</a>
                             </td>
                         </tr>`;
         });
         document.querySelector('tbody').innerHTML = content;
     });
-    function removeStudent(studentId){
-        const removeUrl = `${apiUrl}/${studentId}`;
+    function removeClass(classId){
+        const removeUrl = `${apiUrl}/${classId}`;
         fetch(removeUrl, {
             method: "DELETE",
             headers: {
@@ -43,36 +36,39 @@
             }
         })
         .then(() => {     
-            document.querySelector(`[student-id="${studentId}"]`).remove();
+            document.querySelector(`[class-id="${classId}"]`).remove();
         });
     }
-    function editstudent(event){
+    function editclass(event){
      event.preventDefault();
         let img = document.querySelector('[name="name"]').value;
-        studentData =
+        classData =
          {
             name: document.querySelector('[name="name"]').value,
             // image: document.querySelector('[name="image"]').value,
-            classId: document.querySelector('[name="classId"]').value
+            // classId: document.querySelector('[name="classId"]').value
         };
         if(img.trim().length !=0 ){
-            studentData.image =img;
+            classData.image =img;
         }
-        fetch(`${STUDENT_API}/${studentId}`, {
+        fetch(`${CLASS_API}/${classId}`, {
             method: "PUT",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body:JSON.stringify(studentData)
+            body:JSON.stringify(classData)
         })
         .then(response => response.json())
         .then(jsondata => {
           if(data.id !=undefined){
-              window.location.href="/index.html";
+              window.location.href="/class-index.html";
           }  
         })
-
+    removeClass.forEach(element => {
+        
+    });
+    
     }
     
 </script>

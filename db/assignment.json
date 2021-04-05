@@ -9,16 +9,16 @@
   ],
   "classes": [
     {
-      "id": 1,
-      "name": "PT15311-WEB"
-    },
-    {
       "id": 2,
       "name": "PT15316-WEB"
     },
     {
       "id": 3,
       "name": "PT15414-WEB"
+    },
+    {
+      "id": 4,
+      "name": "PT15414-BTS"
     }
   ]
 }
