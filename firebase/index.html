@@ -1,0 +1,39 @@
+<input type="file" onchange="uploadFile(event)">
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-storage.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyBy7_iwYZn6retmpT0BrNJ2z7NimlhIoqs",
+    authDomain: "my-project-1571579699522.firebaseapp.com",
+    projectId: "my-project-1571579699522",
+    storageBucket: "my-project-1571579699522.appspot.com",
+    messagingSenderId: "1084250744951",
+    appId: "1:1084250744951:web:318e9c007e401f05d2fe72",
+    measurementId: "G-TJM6KC10V6"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  let storage =firebase.storage();
+
+  function uploadFile(event){
+      let file =event.target.files[0];
+      let filename= new Date () + "_" + file.name;
+      storage.ref('Uploads/' + filename).put(file)
+        .then(snapshot => snapshot.ref.getDownloadURL())
+        .then(url => {
+          console.log(url);
+        })
+        .catch(console.error);
+
+  }
+</script>
